@@ -1270,9 +1270,9 @@ static const UIViewAnimationOptions kDefaultAnimationOptions = UIViewAnimationOp
     
     CGSize contentSize = [self.layoutStrategy contentSize];
     
-    _minPossibleContentOffset = CGPointMake(0, 0);
-    _maxPossibleContentOffset = CGPointMake(contentSize.width - self.bounds.size.width + self.contentInset.right, 
-                                            contentSize.height - self.bounds.size.height + self.contentInset.bottom);
+    _minPossibleContentOffset = CGPointMake(-self.contentInset.left, -self.contentInset.top);
+    _maxPossibleContentOffset = CGPointMake(contentSize.width - self.bounds.size.width + self.contentInset.right - self.contentInset.left,
+                                            contentSize.height - self.bounds.size.height + self.contentInset.bottom - self.contentInset.top);
     
     BOOL shouldUpdateScrollviewContentSize = !CGSizeEqualToSize(self.contentSize, contentSize);
     

@@ -1270,6 +1270,23 @@ static const UIViewAnimationOptions kDefaultAnimationOptions = UIViewAnimationOp
     
     CGSize contentSize = [self.layoutStrategy contentSize];
     
+        //change to fullFrame to scrollEnable when it less than a screen
+    CGRect displayFrame = self.frame;
+    displayFrame.size.height -= self.contentInset.top + self.contentInset.bottom;
+    displayFrame.size.width -= self.contentInset.left + self.contentInset.right;
+    if ([self.layoutStrategy type] == GMGridViewLayoutVertical) {
+        //set footer height
+        contentSize = CGSizeMake(contentSize.width, contentSize.height+10);
+        if (contentSize.height <= displayFrame.size.height) {
+            contentSize = CGSizeMake(contentSize.width, displayFrame.size.height+1);
+        }
+    }
+    else {
+        if (contentSize.width <= displayFrame.size.width) {
+            contentSize = CGSizeMake(contentSize.width+1, displayFrame.size.height);
+        }
+    }
+    
     _minPossibleContentOffset = CGPointMake(-self.contentInset.left, -self.contentInset.top);
     _maxPossibleContentOffset = CGPointMake(contentSize.width - self.bounds.size.width + self.contentInset.right - self.contentInset.left,
                                             contentSize.height - self.bounds.size.height + self.contentInset.bottom - self.contentInset.top);

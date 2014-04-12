@@ -1277,12 +1277,14 @@ static const UIViewAnimationOptions kDefaultAnimationOptions = UIViewAnimationOp
     if ([self.layoutStrategy type] == GMGridViewLayoutVertical) {
         //set footer height
         contentSize = CGSizeMake(contentSize.width, contentSize.height+10);
-        if (contentSize.height <= displayFrame.size.height) {
+        if (contentSize.height <= displayFrame.size.height
+            && self.disableBouncesWhenContentSizeSmallerThanFrame == NO) {
             contentSize = CGSizeMake(contentSize.width, displayFrame.size.height+1);
         }
     }
     else {
-        if (contentSize.width <= displayFrame.size.width) {
+        if (contentSize.width <= displayFrame.size.width
+            && self.disableBouncesWhenContentSizeSmallerThanFrame == NO) {
             contentSize = CGSizeMake(contentSize.width+1, displayFrame.size.height);
         }
     }

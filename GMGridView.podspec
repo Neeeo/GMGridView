@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name        =  'GMGridView'
-  s.version     =  '1.2'
+  s.version     =  '1.3'
   s.platform    =  :ios
   s.license     =  'MIT'
   s.summary     =  'A performant Grid-View for iOS (iPhone/iPad).'
@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.homepage    =  'https://github.com/gmoledina/GMGridView'
   s.author      =  { 'Gulam Moledina' =>  'http://www.gmoledina.ca/' }
   s.source      =  { :git => 'https://github.com/cooketjoy/GMGridView.git',
-                     :tag => 'v1.2' }
+                     :tag => s.version.to_s }
 
   s.source_files =  'GMGridView/*.{h,m}'
   s.requires_arc =  true

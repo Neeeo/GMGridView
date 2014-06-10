@@ -383,7 +383,9 @@ static const UIViewAnimationOptions kDefaultAnimationOptions = UIViewAnimationOp
 - (void)setDataSource:(NSObject<GMGridViewDataSource> *)dataSource
 {
     _dataSource = dataSource;
-    [self reloadData];
+    if (_dataSource) {
+        [self reloadData];
+    }
 }
 
 - (void)setMainSuperView:(UIView *)mainSuperView

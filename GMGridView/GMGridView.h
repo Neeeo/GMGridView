@@ -90,6 +90,9 @@ typedef enum
 @property (nonatomic, readonly) UIScrollView *scrollView __attribute__((deprecated)); // The grid now inherits directly from UIScrollView
 @property (nonatomic, assign) BOOL disableBouncesWhenContentSizeSmallerThanFrame;
 
+@property (nonatomic) BOOL lastItemCanMove; // Default is YES;
+@property (nonatomic) BOOL isChangeScrollViewOffset; //Default is YES;
+
 // Reusable cells
 - (GMGridViewCell *)dequeueReusableCell;                              // Should be called in GMGridView:cellForItemAtIndex: to reuse a cell
 - (GMGridViewCell *)dequeueReusableCellWithIdentifier:(NSString *)identifier;

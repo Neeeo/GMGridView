@@ -253,6 +253,8 @@ static const UIViewAnimationOptions kDefaultAnimationOptions = UIViewAnimationOp
     _sortFuturePosition = GMGV_INVALID_POSITION;
     _itemSize = CGSizeZero;
     _centerGrid = YES;
+    self.lastItemCanMove = YES;
+    self.isChangeScrollViewOffset = YES;
     
     _lastScale = 1.0;
     _lastRotation = 0.0;
@@ -681,11 +683,17 @@ static const UIViewAnimationOptions kDefaultAnimationOptions = UIViewAnimationOp
                                   delay:0
                                 options:kDefaultAnimationOptions
                              animations:^{
-                                 self.contentOffset = offset;
+                                 //update by zhanhao: 解决在我的订阅界面当加上编辑按钮只有五项时bug
+                                 if (self.isChangeScrollViewOffset) {
+                                     self.contentOffset = offset;
+                                 }
                              }
                              completion:^(BOOL finished){
                                  
-                                 self.contentOffset = offset;
+                                 //update by zhanhao: 解决在我的订阅界面当加上编辑按钮只有五项时bug
+                                 if (self.isChangeScrollViewOffset) {
+                                     self.contentOffset = offset;
+                                 }
                                  
                                  if (_autoScrollActive) 
                                  {
@@ -706,6 +714,12 @@ static const UIViewAnimationOptions kDefaultAnimationOptions = UIViewAnimationOp
 - (void)sortingMoveDidStartAtPoint:(CGPoint)point
 {
     NSInteger position = [self.layoutStrategy itemPositionFromLocation:point];
+    
+    // update by zhanhao: 4/11/2013 控制最后一个不能拖动
+    if (position == _numberTotalItems - 1 && !self.lastItemCanMove) {
+        _sortMovingItem = nil;
+        return;
+    }
     
     GMGridViewCell *item = [self cellForItemAtIndex:position];
     
@@ -1720,6 +1734,10 @@ static const UIViewAnimationOptions kDefaultAnimationOptions = UIViewAnimationOp
                          cell.contentView.alpha = 0.3f;
                          cell.alpha = 0.f;
                          
+                         if (!self.lastItemCanMove) {
+                             [cell removeFromSuperview];
+                         }
+                         
                          if (shouldScroll) {
                              [self scrollToObjectAtIndex:index atScrollPosition:GMGridViewScrollPositionNone animated:NO];
                          }
@@ -1730,8 +1748,11 @@ static const UIViewAnimationOptions kDefaultAnimationOptions = UIViewAnimationOp
                          [self queueReusableCell:cell];
                          [cell removeFromSuperview];
                          
-                         self.firstPositionLoaded = self.lastPositionLoaded = GMGV_INVALID_POSITION;
-                         [self loadRequiredItems];
+                         //update by zhanhao: 处理当我的订阅时添加订阅不能动bug
+                         if (self.lastItemCanMove) {
+                             self.firstPositionLoaded = self.lastPositionLoaded = GMGV_INVALID_POSITION;
+                             [self loadRequiredItems];
+                         }
                          [self relayoutItemsAnimated:animate];
                      }
      ];

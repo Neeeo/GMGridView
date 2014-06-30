@@ -125,6 +125,21 @@
 #pragma mark Setters / getters
 //////////////////////////////////////////////////////////////
 
+- (UIView *) contentView
+{
+	if ( _contentView == nil )
+    {
+		_contentView = [[UIView alloc] initWithFrame: self.bounds];
+        _contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        _contentView.autoresizesSubviews = YES;
+        self.autoresizesSubviews = YES;
+        _contentView.backgroundColor = [UIColor whiteColor];
+		[_contentView.layer setValue: [NSNumber numberWithBool: YES] forKey: @"KoboHackInterestingLayer"];
+        [self addSubview: _contentView];
+    }
+	return ( _contentView );
+}
+
 - (void)setContentView:(UIView *)contentView
 {
     [self shake:NO];

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name        =  'GMGridView'
-  s.version     =  '1.3.1'
+  s.version     =  '1.3.2'
   s.platform    =  :ios
   s.license     =  'MIT'
   s.summary     =  'A performant Grid-View for iOS (iPhone/iPad).'

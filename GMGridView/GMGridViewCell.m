@@ -136,6 +136,7 @@
         _contentView.backgroundColor = [UIColor whiteColor];
 		[_contentView.layer setValue: [NSNumber numberWithBool: YES] forKey: @"KoboHackInterestingLayer"];
         [self addSubview: _contentView];
+        [self sendSubviewToBack:_contentView];
     }
 	return ( _contentView );
 }
